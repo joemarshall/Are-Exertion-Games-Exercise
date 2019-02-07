@@ -1,0 +1,61 @@
+
+\tikzset{
+    flownode/.style={
+        draw, rectangle, align=center, text width=5cm, font=\small, inner sep=3ex},
+    splitnode/.style={
+        draw, rectangle, align=center, text width=1.25cm,minimum height=1.5cm, font=\small, inner sep=1ex},        
+    flowlabel/.style={
+        draw, rectangle, align=center, rounded corners, font=\small\bf, inner sep=2ex, 
+        fill=cyan!30, minimum height=3.8cm},
+    arrow/.style={
+        very thick,->,>=stealth}
+}
+\centering
+\begin{tikzpicture}[
+    node distance=.5cm,
+    start chain=1 going below,
+    every join/.style=arrow,
+    ]
+    % the chain in the center going below
+    \coordinate[on chain=1] (tc);
+    
+    \node[flownode,text width=8cm,align=left, inner sep=1ex,on chain=1](n0)
+    {
+\textbf{Scholar title searches:}
+\textit{exertion game, exercise game, "active video game", exergame, health game, game "for health", "games for health", fitness game.}
+
+\textbf{Pubmed:} \textit{exergame OR (exertion AND game) OR ((active OR exercise OR exertion OR fitness) AND ("video game" OR "computer game" OR "digital game") )}
+
+\textbf{Scopus:} \textit{TITLE-ABS-KEY ( exergame) OR TITLE-ABS-KEY ("exertion game") OR ((TITLE-ABS-KEY (active) OR TITLE-ABS-KEY (exercise) OR TITLE-ABS-KEY (exertion) OR TITLE-ABS-KEY (fitness) ) AND (TITLE-ABS-KEY ("video game") OR TITLE-ABS-KEY ("computer game") OR TITLE-ABS-KEY ("digital game")) )}
+    };
+    \node[flownode, join,on chain=1](n1)
+        {3171 records from searches};
+.    \node[flownode, join, on chain=1] (n3)
+        {2665 non-duplicate records screened};
+    \node[flownode, join, on chain=1] (n5)
+        {726 exertion game articles in study};
+    % the five individual research questions
+  \node[splitnode, below=1cm of n5, anchor=north] (rq3)
+        { 76  long term health studies };
+    
+   \node[splitnode, left=.1cm of rq3] (rq2)
+      { 133  long term exercise studies };
+    
+   \node[splitnode, left=.1cm of rq2] (rq1)
+        { 243 short term exercise studies };
+
+
+
+  \node[splitnode, right=.1 cm of rq3] (rq4)
+        { 37  cognitive effects studies};
+
+  \node[splitnode, right=.1cm of rq4] (rq5)
+        { 291  balance and rehab };
+
+    \draw[arrow] (n5) -- (rq1.north);
+    \draw[arrow] (n5) -- (rq2);
+    \draw[arrow] (n5) -- (rq3);
+    \draw[arrow] (n5) -- (rq4);
+    \draw[arrow] (n5) -- (rq5.north);
+    
+\end{tikzpicture}

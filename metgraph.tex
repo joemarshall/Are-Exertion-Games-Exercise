@@ -1,0 +1,54 @@
+\pgfplotstableread[col sep=comma]{met-analysis-latex.csv}\datatable
+
+\newcommand{\METLine}[1]{\addplot[only marks,mark options={fill=black,fill opacity=.8,draw opacity=0}] table [y expr=\coordindex
+,x=#1]{\datatable};
+}
+
+\begin{tikzpicture}
+\begin{axis}[small,height=24cm,width=6cm,xmin=0,
+xmax=10,
+enlarge y limits=.01,
+yticklabels from table={\datatable}{Game Cited},
+y tick label style={font=\tiny,text width=4cm,align=right},
+ytick = data,
+xtick={0,...,10},
+y dir = reverse,
+xlabel={Mean level of exertion (METs)}
+]
+\addplot[xbar,fill=lightgray,fill opacity=.2,draw=none] table[y expr=\coordindex,x expr=\thisrow{alternating}*10]{\datatable};
+\filldraw[fill=yellow,fill opacity=.1,draw=none] ({axis cs:6,0}|-{rel axis cs:0,1}) rectangle ({axis cs:10,0}|-{rel axis cs:1,0});
+\filldraw[fill=green,fill opacity=.1,draw=none] ({axis cs:3,0}|-{rel axis cs:0,1}) rectangle ({axis cs:6,0}|-{rel axis cs:1,0});
+
+\METLine{MET1};
+\METLine{MET2};
+\METLine{MET3};
+\METLine{MET4};
+\METLine{MET5};
+\METLine{MET6};
+\METLine{MET7};
+\METLine{MET8};
+\METLine{MET9};
+\METLine{MET10};
+\METLine{MET11};
+\METLine{MET12};
+\METLine{MET13};
+\METLine{MET14};
+\METLine{MET15};
+\METLine{MET16};
+\METLine{MET17};
+\METLine{MET18};
+\METLine{MET19};
+\METLine{MET20};
+\METLine{MET21};
+\METLine{MET22};
+\METLine{MET23};
+\METLine{MET24};
+\METLine{MET25};
+\METLine{MET26};
+%\addplot[only marks] table [y expr=\coordindex,x=MET1]{\datatable};
+\end{axis}
+%\filldraw [brown] (current bounding box.north west) rectangle (current bounding box.south east);
+\node[draw] at (0,-1.2) {Green bar = moderate exercise (3-6 METs), yellow bar = vigorous exercise (6+ METs)};
+ 
+
+\end{tikzpicture}
